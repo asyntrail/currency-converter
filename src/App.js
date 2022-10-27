@@ -1,5 +1,5 @@
 import './index.css';
-import cur from './data/currency.json';
+import info from './data/pubinfo.json';
 import React, { useState } from 'react';
 
 
@@ -7,17 +7,21 @@ function App() {
   const [inputstate, setInputstate] = useState('');
   const [result, setResult] = useState(0);
 
-  const currency = cur[0]["usd"];
+  const usdinfo = info[0]["sale"];
 
   return (
     <div className="container">
+
       <div className="app">
-        {cur.map(item =>
-          <p key={item+"key"}>UAH {item.uah} to USD {item.usd} </p>)}
-        <input onChange={(event) => {setInputstate(event.target.value) }} type="number" />
-        <button onClick={() =>
-          setResult(inputstate * currency)}>Convert</button>
-        <p>Result is {result} </p>
+      <form onSubmit={(event) => {setResult(inputstate * usdinfo)
+      event.preventDefault();}
+      }>
+        <h3>Калькулятор</h3>
+          <input onChange={(event) => { setInputstate(event.target.value) }}
+           type="number" placeholder="Сума в гривні" name="maininput" />
+        <button type="submit" >Порахувати</button>
+      </form>
+        <p>Сума в доларах {result} </p>
       </div>
     </div>
   );
